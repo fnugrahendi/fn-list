@@ -104,6 +104,30 @@ function slist_admin_page(){
 	
 }
 
+function html_show_all_list(){
+	$table = $GLOBALS['wpdb']->prefix.'fnlist';
+	$results = $GLOBALS['wpdb']->get_results('SELECT * FROM '.$table.'');
+	$rowNum = $GLOBALS['wpdb']->num_rows;
+	$n = $rowNum;
+	for($idx = 0; $idx < $n; $idx++){
+		$order = $results[$idx]->order;
+		$name = $results[$idx]->name;
+		echo esc_html__('#'.$order.'  ', 'text_domain' );
+		echo esc_html__($name, 'text_domain' );
+		echo "<br>";
+	}
+}
+
+//~ shortcode function
+function fn_shortcode(){
+	ob_start();
+	html_show_all_list();
+	return ob_get_clean();
+}
+
+add_shortcode('fn_simplelist', 'fn_shortcode');
+
+
 define( 'FNLIST__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 require_once(FNLIST__PLUGIN_DIR."class.fn-widget.php");
 
