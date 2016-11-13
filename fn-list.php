@@ -104,4 +104,7 @@ function slist_admin_page(){
 	
 }
 
+define( 'FNLIST__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+require_once(FNLIST__PLUGIN_DIR."class.fn-widget.php");
+
 ?>
