@@ -109,13 +109,17 @@ function html_show_all_list(){
 	$results = $GLOBALS['wpdb']->get_results('SELECT * FROM '.$table.'');
 	$rowNum = $GLOBALS['wpdb']->num_rows;
 	$n = $rowNum;
+	echo '<ul>';
 	for($idx = 0; $idx < $n; $idx++){
 		$order = $results[$idx]->order;
 		$name = $results[$idx]->name;
-		echo esc_html__('#'.$order.'  ', 'text_domain' );
+		echo '<li>';
+		echo esc_html__($order.'  ', 'text_domain' );
 		echo esc_html__($name, 'text_domain' );
+		echo '</li>';
 		echo "<br>";
 	}
+	echo '</ul>';
 }
 
 //~ shortcode function
