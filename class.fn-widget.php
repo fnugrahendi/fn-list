@@ -19,14 +19,21 @@ class FN_Widget extends WP_Widget {
 		$table = $GLOBALS['wpdb']->prefix.'fnlist';
 		$results = $GLOBALS['wpdb']->get_results('SELECT * FROM '.$table.'');
 		$rowNum = $GLOBALS['wpdb']->num_rows;
-		$n = 0;
-		foreach($results as $record=>$row){
-			$order = $row->order;
-			$name = $row->name;
-			//~ $str = $results[$id]->testimoni;
+		$isMore = false;
+		if($rowNum > 10) {
+			$n = 10;
+			$isMore = true;
+		}
+		else $n = $rowNum;
+		for($idx = 0; $idx < $n; $idx++){
+			$order = $results[$idx]->order;
+			$name = $results[$idx]->name;
 			echo esc_html__('#'.$order.'  ', 'text_domain' );
 			echo esc_html__($name, 'text_domain' );
 			echo "<br>";
+		}
+		if($isMore){
+			echo '<a href="#">See more ...</a>';
 		}
 		echo $args['after_widget'];
 	}
