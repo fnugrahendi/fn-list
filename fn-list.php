@@ -48,7 +48,7 @@ function slist_admin_page(){
 		echo '<td>'.$row->name.'</td>';
 		echo '<td>'.$row->description.'</td>';
 		echo '<td style="text-align: center">';
-		echo '<a href="#" onclick="test('.$row->id.')">';
+		echo '<a href="#" onclick="del('.$row->id.')">';
 		echo '<span class="dashicons dashicons-trash"></span>';
 		echo '</a>';
 		echo '</td>';
@@ -76,6 +76,32 @@ function slist_admin_page(){
 	echo '</div>';
 	
 	echo '</div>';
+	
+	//~ save to database
+	if(isset($_POST["fn-add"])){
+		//~ sanitize input
+		$order = sanitize_text_field($_POST["fn-order"]);
+		$name = sanitize_text_field($_POST["fn-name"]);
+		$desc = esc_textarea($_POST["fn-desc"]);
+		
+		//~ insert row into table
+		$data = array(
+			'order' => $order,
+			'name' => $name,
+			'description' => $desc,
+		);
+		$table = $GLOBALS['wpdb']->prefix.'fnlist';
+		if($GLOBALS['wpdb']->insert($table, $data)){
+			echo '<div class="message">';
+            echo '<p>Item is added successfully</p>';
+            echo '</div>';
+		} else {
+			echo '<div class="message">';
+			echo 'Ooops. Somehow an error occurred. Try again';
+			echo '</div>';
+		}
+	}
+	
 }
 
 ?>
