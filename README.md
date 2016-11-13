@@ -1,2 +1,3 @@
 # fn-list
-Simple List plugin for wordpress.
+Simple List plugin for Wordpress.
+Features : backend menus, shortcode, and widget
